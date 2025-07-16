@@ -29,7 +29,8 @@ export function SpecialOfferSection() {
           <Button 
             size="lg" 
             variant="secondary"
-            className="bg-white text-purple-600 hover:bg-gray-100 font-semibold"
+            className="bg-white text-purple-600 hover:bg-gray-100 font-semibold transition-all duration-300 hover:scale-105"
+            onClick={() => window.open('https://wa.me/15551234567?text=Hi! I would like to claim my free website review and AI suggestions.', '_blank')}
           >
             Claim Your Free Review
             <ArrowRight className="ml-2 h-5 w-5" />

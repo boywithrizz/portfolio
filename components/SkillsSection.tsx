@@ -33,7 +33,7 @@ export function SkillsSection() {
   }
 
   return (
-    <section id="skills" className="py-20 bg-muted/50">
+    <section id="skills" className="py-20 bg-muted/50 scroll-mt-20">
       <div className="container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -60,7 +60,7 @@ export function SkillsSection() {
         >
           {skills.map((skill) => (
             <motion.div key={skill.name} variants={itemVariants}>
-              <Card className="h-full hover:shadow-lg transition-shadow">
+              <Card className="h-full hover:shadow-lg transition-all duration-300 hover:scale-105">
                 <CardContent className="p-6">
                   <div className="text-center mb-4">
                     <div className="text-3xl mb-2">{skill.icon}</div>

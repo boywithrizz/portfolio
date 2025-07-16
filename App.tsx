@@ -11,6 +11,7 @@ import { TestimonialsSection } from './components/TestimonialsSection'
 import { SpecialOfferSection } from './components/SpecialOfferSection'
 import { ContactSection } from './components/ContactSection'
 import { Footer } from './components/Footer'
+import { ScrollToTop } from './components/ScrollToTop'
 
 export default function App() {
   return (
@@ -28,6 +29,7 @@ export default function App() {
           <ContactSection />
         </main>
         <Footer />
+        <ScrollToTop />
       </div>
     </ThemeProvider>
   )

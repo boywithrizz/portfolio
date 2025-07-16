@@ -43,7 +43,7 @@ export function ServicesSection() {
   ]
 
   return (
-    <section id="services" className="py-20 bg-background">
+    <section id="services" className="py-20 bg-background scroll-mt-20">
       <div className="container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -70,7 +70,7 @@ export function ServicesSection() {
               transition={{ duration: 0.6, delay: index * 0.1 }}
               viewport={{ once: true }}
             >
-              <Card className="h-full hover:shadow-lg transition-all duration-300 hover:scale-105">
+              <Card className="h-full hover:shadow-lg transition-all duration-300 hover:scale-105 group">
                 <CardHeader>
                   <div className="w-12 h-12 bg-gradient-to-r from-purple-600 to-teal-600 rounded-lg flex items-center justify-center mb-4">
                     <service.icon className="h-6 w-6 text-white" />
@@ -90,7 +90,7 @@ export function ServicesSection() {
                   </ul>
                   <div className="flex justify-between items-center pt-4">
                     <span className="text-lg font-semibold text-purple-600">{service.price}</span>
-                    <Button variant="outline" size="sm">
+                    <Button variant="outline" size="sm" className="group-hover:bg-purple-600 group-hover:text-white transition-colors">
                       Learn More
                       <ArrowRight className="ml-2 h-4 w-4" />
                     </Button>

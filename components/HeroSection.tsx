@@ -28,12 +28,21 @@ export function HeroSection() {
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <Button size="lg" className="bg-gradient-to-r from-purple-600 to-teal-600 hover:from-purple-700 hover:to-teal-700 text-white">
+            <Button 
+              size="lg" 
+              className="bg-gradient-to-r from-purple-600 to-teal-600 hover:from-purple-700 hover:to-teal-700 text-white transition-all duration-300 hover:scale-105"
+              onClick={() => window.open('https://wa.me/15551234567?text=Hi! I would like a free website review for my business.', '_blank')}
+            >
               Get Free Website Review
               <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
             
-            <Button variant="outline" size="lg">
+            <Button 
+              variant="outline" 
+              size="lg"
+              className="transition-all duration-300 hover:scale-105"
+              onClick={() => document.getElementById('portfolio')?.scrollIntoView({ behavior: 'smooth' })}
+            >
               View Portfolio
             </Button>
           </div>

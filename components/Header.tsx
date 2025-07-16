@@ -10,12 +10,19 @@ export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
   const navItems = [
-    { name: 'About', href: '#about' },
-    { name: 'Skills', href: '#skills' },
-    { name: 'Services', href: '#services' },
-    { name: 'Portfolio', href: '#portfolio' },
-    { name: 'Contact', href: '#contact' },
+    { name: 'About', href: 'about' },
+    { name: 'Skills', href: 'skills' },
+    { name: 'Services', href: 'services' },
+    { name: 'Portfolio', href: 'portfolio' },
+    { name: 'Contact', href: 'contact' },
   ]
+
+  const scrollToSection = (sectionId: string) => {
+    const element = document.getElementById(sectionId)
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' })
+    }
+  }
 
   return (
     <motion.header 
@@ -32,13 +39,13 @@ export function Header() {
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center space-x-8">
           {navItems.map((item) => (
-            <a
+            <button
               key={item.name}
-              href={item.href}
-              className="text-foreground hover:text-purple-600 transition-colors"
+              onClick={() => scrollToSection(item.href)}
+              className="text-foreground hover:text-purple-600 transition-colors cursor-pointer"
             >
               {item.name}
-            </a>
+            </button>
           ))}
           <ThemeToggle />
         </nav>
@@ -66,14 +73,16 @@ export function Header() {
         >
           <nav className="container mx-auto px-4 py-4 flex flex-col space-y-4">
             {navItems.map((item) => (
-              <a
+              <button
                 key={item.name}
-                href={item.href}
-                className="text-foreground hover:text-purple-600 transition-colors"
-                onClick={() => setIsMenuOpen(false)}
+                onClick={() => {
+                  scrollToSection(item.href)
+                  setIsMenuOpen(false)
+                }}
+                className="text-foreground hover:text-purple-600 transition-colors text-left"
               >
                 {item.name}
-              </a>
+              </button>
             ))}
           </nav>
         </motion.div>

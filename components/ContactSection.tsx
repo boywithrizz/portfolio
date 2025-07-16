@@ -1,5 +1,6 @@
 "use client"
 
+import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { Badge } from './ui/badge'
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card'
@@ -7,9 +8,56 @@ import { Button } from './ui/button'
 import { Input } from './ui/input'
 import { Textarea } from './ui/textarea'
 import { Label } from './ui/label'
-import { Mail, MessageSquare, Github, Linkedin, MapPin, Phone } from 'lucide-react'
+import { Mail, MessageSquare, Github, Linkedin, MapPin, Phone, Send, CheckCircle, AlertCircle } from 'lucide-react'
+import { Alert, AlertDescription } from './ui/alert'
 
 export function ContactSection() {
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    message: ''
+  })
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle')
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target
+    setFormData(prev => ({ ...prev, [name]: value }))
+  }
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setIsSubmitting(true)
+    setSubmitStatus('idle')
+
+    try {
+      const response = await fetch('https://formsubmit.co/hello@yourwebdev.com', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          message: formData.message,
+          _subject: 'New Portfolio Contact Form Submission',
+          _captcha: 'false'
+        })
+      })
+
+      if (response.ok) {
+        setSubmitStatus('success')
+        setFormData({ name: '', email: '', message: '' })
+      } else {
+        setSubmitStatus('error')
+      }
+    } catch (error) {
+      setSubmitStatus('error')
+    } finally {
+      setIsSubmitting(false)
+    }
+  }
+
   const contactInfo = [
     {
       icon: Mail,
@@ -50,7 +98,7 @@ export function ContactSection() {
   ]
 
   return (
-    <section id="contact" className="py-20 bg-muted/50">
+    <section id="contact" className="py-20 bg-muted/50 scroll-mt-20">
       <div className="container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -80,32 +128,81 @@ export function ContactSection() {
               <CardHeader>
                 <CardTitle>Send a Message</CardTitle>
               </CardHeader>
-              <CardContent className="space-y-6">
+              <CardContent>
+                {submitStatus === 'success' && (
+                  <Alert className="mb-6 border-green-200 bg-green-50 text-green-800 dark:border-green-800 dark:bg-green-950 dark:text-green-200">
+                    <CheckCircle className="h-4 w-4" />
+                    <AlertDescription>
+                      Thank you! Your message has been sent successfully. I'll get back to you soon.
+                    </AlertDescription>
+                  </Alert>
+                )}
+                
+                {submitStatus === 'error' && (
+                  <Alert className="mb-6 border-red-200 bg-red-50 text-red-800 dark:border-red-800 dark:bg-red-950 dark:text-red-200">
+                    <AlertCircle className="h-4 w-4" />
+                    <AlertDescription>
+                      Sorry, there was an error sending your message. Please try again or contact me directly.
+                    </AlertDescription>
+                  </Alert>
+                )}
+
+                <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="grid md:grid-cols-2 gap-4">
                   <div className="space-y-2">
                     <Label htmlFor="name">Name</Label>
-                    <Input id="name" placeholder="Your name" />
+                    <Input 
+                      id="name" 
+                      name="name"
+                      placeholder="Your name" 
+                      value={formData.name}
+                      onChange={handleInputChange}
+                      required
+                    />
                   </div>
                   <div className="space-y-2">
                     <Label htmlFor="email">Email</Label>
-                    <Input id="email" type="email" placeholder="your@email.com" />
+                    <Input 
+                      id="email" 
+                      name="email"
+                      type="email" 
+                      placeholder="your@email.com" 
+                      value={formData.email}
+                      onChange={handleInputChange}
+                      required
+                    />
                   </div>
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="subject">Subject</Label>
-                  <Input id="subject" placeholder="Project inquiry" />
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="message">Message</Label>
                   <Textarea 
                     id="message" 
+                    name="message"
                     placeholder="Tell me about your project..." 
                     className="min-h-[120px]"
+                    value={formData.message}
+                    onChange={handleInputChange}
+                    required
                   />
                 </div>
-                <Button className="w-full bg-gradient-to-r from-purple-600 to-teal-600 hover:from-purple-700 hover:to-teal-700">
-                  Send Message
+                <Button 
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="w-full bg-gradient-to-r from-purple-600 to-teal-600 hover:from-purple-700 hover:to-teal-700 disabled:opacity-50"
+                >
+                  {isSubmitting ? (
+                    <>
+                      <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
+                      Sending...
+                    </>
+                  ) : (
+                    <>
+                      <Send className="h-4 w-4 mr-2" />
+                      Send Message
+                    </>
+                  )}
                 </Button>
+                </form>
               </CardContent>
             </Card>
           </motion.div>

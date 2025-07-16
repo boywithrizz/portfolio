@@ -48,7 +48,7 @@ export function PortfolioSection() {
   ]
 
   return (
-    <section id="portfolio" className="py-20 bg-muted/50">
+    <section id="portfolio" className="py-20 bg-muted/50 scroll-mt-20">
       <div className="container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -75,7 +75,7 @@ export function PortfolioSection() {
               transition={{ duration: 0.6, delay: index * 0.1 }}
               viewport={{ once: true }}
             >
-              <Card className="overflow-hidden group hover:shadow-lg transition-all duration-300">
+              <Card className="overflow-hidden group hover:shadow-lg transition-all duration-300 hover:scale-105">
                 <div className="relative overflow-hidden">
                   <ImageWithFallback
                     src={project.image}
@@ -83,11 +83,11 @@ export function PortfolioSection() {
                     className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-300"
                   />
                   <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center space-x-4">
-                    <Button size="sm" variant="secondary">
+                    <Button size="sm" variant="secondary" className="hover:scale-110 transition-transform">
                       <ExternalLink className="h-4 w-4 mr-2" />
                       Demo
                     </Button>
-                    <Button size="sm" variant="secondary">
+                    <Button size="sm" variant="secondary" className="hover:scale-110 transition-transform">
                       <Github className="h-4 w-4 mr-2" />
                       Code
                     </Button>

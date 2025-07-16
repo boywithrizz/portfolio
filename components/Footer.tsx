@@ -45,11 +45,11 @@ export function Footer() {
           <div>
             <h3 className="font-semibold mb-4">Quick Links</h3>
             <ul className="space-y-2 text-sm text-muted-foreground">
-              <li><a href="#about" className="hover:text-purple-600 transition-colors">About</a></li>
-              <li><a href="#skills" className="hover:text-purple-600 transition-colors">Skills</a></li>
-              <li><a href="#services" className="hover:text-purple-600 transition-colors">Services</a></li>
-              <li><a href="#portfolio" className="hover:text-purple-600 transition-colors">Portfolio</a></li>
-              <li><a href="#contact" className="hover:text-purple-600 transition-colors">Contact</a></li>
+              <li><button onClick={() => document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' })} className="hover:text-purple-600 transition-colors">About</button></li>
+              <li><button onClick={() => document.getElementById('skills')?.scrollIntoView({ behavior: 'smooth' })} className="hover:text-purple-600 transition-colors">Skills</button></li>
+              <li><button onClick={() => document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' })} className="hover:text-purple-600 transition-colors">Services</button></li>
+              <li><button onClick={() => document.getElementById('portfolio')?.scrollIntoView({ behavior: 'smooth' })} className="hover:text-purple-600 transition-colors">Portfolio</button></li>
+              <li><button onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })} className="hover:text-purple-600 transition-colors">Contact</button></li>
             </ul>
           </div>
 
